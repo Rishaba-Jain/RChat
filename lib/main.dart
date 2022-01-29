@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
+
 import 'ui/message_list.dart';
+import '../data/message_dao.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // TODO: Add Firebase Initialization
+  await Firebase.initializeApp();
   runApp(const App());
 }
 
@@ -12,13 +16,20 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Add MultiProvider
-    return MaterialApp(
-      title: 'RChat',
-      theme: ThemeData(primaryColor: const Color(0xFF3D814A)),
-      // TODO: Add Consumer<UserDao> here
-      home: const MessageList(),
-      // TODO: Add closing parenthesis
+    return MultiProvider(
+      providers: [
+        // TODO: Add ChangeNotifierProvider<UserDao> here
+        Provider<MessageDao>(
+          lazy: false,
+          create: (_) => MessageDao(),
+        ),
+      ],
+      child: MaterialApp(
+        title: 'RChat',
+        theme: ThemeData(primaryColor: const Color(0xFF3D814A)),
+        // TODO: Add Consumer<UserDao> here
+        home: const MessageList(),
+      ),
     );
   }
 }
