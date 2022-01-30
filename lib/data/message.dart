@@ -20,6 +20,12 @@ class Message {
         email: json['email'] as String?,
       );
 
+  // factory Message.fromJson(Map<dynamic, dynamic> json) => Message(
+  //       text: json['text'] ?? 'text123' as String,
+  //       date: DateTime.parse(json['date'] ?? '2022-01-30 13:58:13' as String),
+  //       email: json['email'] as String?,
+  //     );
+
   Map<String, dynamic> toJson() => <String, dynamic>{
         'date': date.toString(),
         'text': text,

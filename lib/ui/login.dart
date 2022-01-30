@@ -36,6 +36,7 @@ class _LoginState extends State<Login> {
           key: _formKey,
           child: Column(
             children: [
+              // ------------------------------------
               Row(
                 children: [
                   const SizedBox(height: 80),
@@ -60,7 +61,67 @@ class _LoginState extends State<Login> {
                   ),
                 ],
               ),
-              // TODO: Add Password
+              // ------------------------------------
+              Row(
+                children: [
+                  const SizedBox(height: 20),
+                  Expanded(
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                        border: UnderlineInputBorder(),
+                        hintText: 'Password',
+                      ),
+                      autofocus: false,
+                      obscureText: false,
+                      keyboardType: TextInputType.visiblePassword,
+                      textCapitalization: TextCapitalization.none,
+                      autocorrect: false,
+                      controller: _passwordController,
+                      validator: (String? value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Password Required';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              const Spacer(),
+              // ------------------------------------
+              Row(
+                children: [
+                  const SizedBox(height: 20),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        userDao.login(
+                          _emailController.text,
+                          _passwordController.text,
+                        );
+                      },
+                      child: const Text('Login'),
+                    ),
+                  ),
+                ],
+              ),
+              // ------------------------------------
+              Row(
+                children: [
+                  const SizedBox(height: 20.0),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        userDao.signup(
+                            _emailController.text, _passwordController.text);
+                      },
+                      child: const Text('Sign Up'),
+                    ),
+                  ),
+                  const SizedBox(height: 60),
+                ],
+              ),
+              // ------------------------------------
             ],
           ),
         ),
